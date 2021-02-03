@@ -29,6 +29,8 @@ function ShelfPage() {
     })
   }
 
+  
+
   return (
     <div className="container">
       <h3>Add an Item to the Shelf</h3>
@@ -63,6 +65,9 @@ function ShelfPage() {
                 <img src={item.image_url} />
                 <br />
                 <p>{item.description}</p>
+                <button onClick={(event) => dispatch({type: 'DELETE_item', payload: item.id})}>
+                  Delete
+                  </button>
               </li>
             )
           })}
