@@ -10,7 +10,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `
     SELECT * FROM "item";
   `
-  pool.query(queryText, [req.user.id])
+  pool.query(queryText)
     .then((result) => {
       console.log(req.user)
       res.send(result.rows)
