@@ -28,7 +28,7 @@ function* addToShelf(action) {
 // takes ID from client, sends to server, gets shelf again
 function* deleteItem(action) {
     try {
-        const deleteID = action.payload.id;
+        const deleteID = action.payload;
         console.log('deleting item with id:', deleteID);
         yield axios.delete(`/api/shelf/${deleteID}`);
         yield put({ type: 'FETCH_SHELF' });
