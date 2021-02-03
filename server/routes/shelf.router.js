@@ -25,20 +25,20 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 /**
  * Add an item for the logged in user to the shelf
  */
-router.post('/',rejectUnauthenticated, (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
   console.log('in POST with req.body:', req.body);
   const newItem = req.body.newItem;
   const query = `INSERT INTO "item" ("description", "image_url", "user_id")
                   VALUES ($1, $2, $3);`
 
   pool.query(query, [newItem.description, newItem.image_url, req.user.id])
-  .then((result) => {
-    res.send(result.rows)
-  })
-  .catch((error)=>{
-    console.log('error in POST item:', error);
-    res.sendStatus(500);
-  })
+    .then((result) => {
+      res.send(result.rows)
+    })
+    .catch((error) => {
+      console.log('error in POST item:', error);
+      res.sendStatus(500);
+    })
   // endpoint functionality
 });
 
@@ -49,9 +49,9 @@ router.delete('/:id', (req, res) => {
   const id = req.params.id;
   queryText = `
     DELETE FROM "item"
-    WHERE id = $1;
+    WHERE id = $1; AND "user_id" = $2;
   `
-  pool.query(queryText, [id])
+  pool.query(queryText, [id, req.user.id])
     .then((result) => {
       console.log(result)
       res.sendStatus(200)
