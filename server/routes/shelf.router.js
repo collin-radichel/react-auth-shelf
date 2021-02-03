@@ -25,7 +25,20 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 /**
  * Add an item for the logged in user to the shelf
  */
-router.post('/', (req, res) => {
+router.post('/',rejectUnauthenticated, (req, res) => {
+  console.log('in POST with req.body:', req.body);
+  const newItem = req.body;
+  const query = `INSERT INTO "item" ("description", "image_url", "user_id")
+                  VALUES ($1, $2, $3);`
+
+  pool.query(query, [newItem.description, newItem.image_url, req.user.id])
+  .then((result) => {
+    res.send(result.rows)
+  })
+  .catch((error)=>{
+    console.log('error in POST item:', error);
+    res.sendStatus(500);
+  })
   // endpoint functionality
 });
 
