@@ -14,7 +14,7 @@ function* fetchShelf() {
 }
 
 // takes item from client, sends to server, gets shelf again
-function* addToShelf() {
+function* addToShelf(action) {
     try {
         const newItem = action.payload;
         console.log("newItem to add:", newItem);
