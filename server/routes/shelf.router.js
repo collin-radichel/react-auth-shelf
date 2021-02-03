@@ -27,7 +27,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
  */
 router.post('/',rejectUnauthenticated, (req, res) => {
   console.log('in POST with req.body:', req.body);
-  const newItem = req.body;
+  const newItem = req.body.newItem;
   const query = `INSERT INTO "item" ("description", "image_url", "user_id")
                   VALUES ($1, $2, $3);`
 
