@@ -29,20 +29,21 @@ function ShelfPage() {
     })
   }
 
+  
+
   return (
     <div className="container">
+      <h3>Add an Item to the Shelf</h3>
       <form onSubmit={handleSubmit}>
         <div>
           <textarea
-            rows="5"
-            cols="30"
+            rows="3"
+            cols="17"
             name="description"
             value={newItem.description}
             placeholder="description of item"
             onChange={handleChange}
           />
-        </div>
-        <div>
           <input
             type="text"
             name="image_url"
@@ -50,8 +51,6 @@ function ShelfPage() {
             placeholder="image url"
             onChange={handleChange}
           />
-        </div>
-        <div>
           <button type="submit">Add</button>
         </div>
       </form>
@@ -66,6 +65,9 @@ function ShelfPage() {
                 <img src={item.image_url} />
                 <br />
                 <p>{item.description}</p>
+                <button onClick={(event) => dispatch({type: 'DELETE_item', payload: item.id})}>
+                  Delete
+                  </button>
               </li>
             )
           })}
