@@ -8,8 +8,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
  */
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `
-    SELECT * FROM "item"
-    WHERE "user_id" = $1;
+    SELECT * FROM "item";
   `
   pool.query(queryText, [req.user.id])
     .then((result) => {
